@@ -58,8 +58,12 @@ def grade(explanation, concepts):
     words = set(re.findall(r"[a-z]+", explanation.lower()))
 
     def mentioned(concept):
-        stem = concept.lower()[:5]
-        return any(w.startswith(stem) for w in words)
+        # Split hyphenated concepts such as "f-string" into word parts: a
+        # single stem built from the raw concept ("f-str") can never match
+        # any word in an explanation, because explanation words contain no
+        # hyphens.
+        parts = re.findall(r"[a-z]+", concept.lower())
+        return any(w == part or w.startswith(part[:5]) for part in parts for w in words)
 
     hits = [c for c in concepts if mentioned(c)]
     return len(hits) / len(concepts), [c for c in concepts if c not in hits]
@@ -96,10 +100,15 @@ def run_lesson(title, lines):
 
 
 def run_file(path):
-    with open(path, encoding="utf-8", errors="replace") as fh:
-        lines = fh.read().splitlines()
+    try:
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            lines = fh.read().splitlines()
+    except OSError as exc:
+        print(f"Lex: cannot open {path}: {exc.strerror or exc}", file=sys.stderr)
+        return 1
     print(f"\n=== Lex file mode: {path} ({len(lines)} lines) ===")
     print("One line at a time. Explain it to reveal the next.\n")
+    completed = True
     for i, line in enumerate(lines, 1):
         print(f"{i:>4}: {line}")
         if line.strip():
@@ -107,8 +116,12 @@ def run_file(path):
                 input("  Your explanation (Enter to continue): ")
             except EOFError:
                 print()
+                completed = False
                 break
-    print("\nFile complete. If you explained every line out loud, you own this code now.")
+    if completed:
+        print("\nFile complete. If you explained every line out loud, you own this code now.")
+    else:
+        print("File abandoned before the end. The lines after the break still wait for you.")
     return 0
 
 
