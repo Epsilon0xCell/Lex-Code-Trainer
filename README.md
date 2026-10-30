@@ -1,10 +1,10 @@
 ![Lex banner](banner.png)
 
-# Lex
+# Lex-Code-Trainer
 
 Lex is the AI programming assistant done right.
 
-# What makes Lex different?
+# What makes Lex-Code-Trainer different?
 
 Lex ensures that you are not copying and pasting code but rather
 understanding each line. After Lex shows you code, only a single line is
