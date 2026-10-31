@@ -41,18 +41,37 @@ press Enter before revealing the next line.
 - A fully correct run through the `functions` lesson scores 100 percent,
   including the f-string line: the concept `f-string` is matched by its
   word parts, so an explanation mentioning an f-string can earn that
-  concept.
-- Closing the input (EOF) during a lesson stops the lesson without a
-  score and without a traceback, exit 0.
+  concept. The short parts of a hyphenated concept count only as a
+  whole word: the `f` in `f-string` is not earned by words that merely
+  start with f, such as `function` or `formats`. An explanation that
+  names the f-string (or writes `fstring`) still earns it.
+- Closing the input (EOF) or pressing Ctrl-C during a lesson stops the
+  lesson without a traceback, exit 0. If any line was graded before
+  the stop, the score printed is over the lines reached so far; if
+  none was, no score line prints.
 - `--file` with a missing path or a directory prints a short
   `Lex: cannot open ...` message to stderr and exits 1, with no traceback.
-- Closing the input part-way through `--file` mode ends with
+- Closing the input, or pressing Ctrl-C, part-way through `--file`
+  mode ends with
   `File abandoned before the end.` instead of claiming the file was
   completed. A file read to the end ends with the `File complete.`
   message. An empty file completes immediately.
 - If both `--file` and `--lesson` are given, `--file` takes precedence.
 
+## Tests
+
+```bash
+python3 -m unittest
+```
+
+20 tests: `grade()` on its own (stem matching, the f-string
+whole-word rule above, partial credit, empty input), scripted
+lesson runs (full marks, all skips, EOF early and late, Ctrl-C),
+and file mode (missing file, directory, empty file, read to the
+end, abandoned early, Ctrl-C, `--file` winning over `--lesson`).
+
 ## Files
 
 - `lex.py` - the whole program, lessons included
+- `test_lex.py` - the test suite
 - `LICENSE` - MIT License

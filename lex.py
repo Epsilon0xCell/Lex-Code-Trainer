@@ -77,16 +77,29 @@ def grade(explanation, concepts):
         # any word in an explanation, because explanation words contain no
         # hyphens.
         parts = re.findall(r"[a-z]+", concept.lower())
-        return any(w == part or w.startswith(part[:5]) for part in parts for w in words)
+        # Writing the parts joined together ("fstring") names the
+        # concept too, so I count that spelling as a mention.
+        if len(parts) > 1 and "".join(parts) in words:
+            return True
+        for part in parts:
+            for w in words:
+                if w == part:
+                    return True
+                # Prefix matching is what lets "accumulate" earn the
+                # "accumul" stem, and it only helps on parts long
+                # enough to pick out one word family. A one or two
+                # letter part matched by prefix would be earned by
+                # almost any sentence: the "f" in "f-string" used to
+                # be matched by "function" and "formats", so that
+                # concept was credited to explanations that never
+                # named an f-string at all. Short parts now count
+                # only as a whole word, which an explanation that
+                # writes "f-string" or "f string" always produces.
+                if len(part) >= 3 and w.startswith(part[:5]):
+                    return True
+        return False
 
     hits = [c for c in concepts if mentioned(c)]
-    # The stem match is loose at the short end. A one letter part
-    # such as the "f" in "f-string" is matched by any word that
-    # starts with that letter, so that concept can be earned by an
-    # explanation that never names it. The looseness gives credit
-    # too easily. It never withholds credit from an explanation
-    # that does name the concept, which is the direction I care
-    # about more.
     return len(hits) / len(concepts), [c for c in concepts if c not in hits]
 
 
@@ -104,8 +117,9 @@ def run_lesson(title, lines):
             continue
         try:
             answer = input("  Your explanation: ").strip()
-        except EOFError:
-            # Closing the input ends the lesson where it stands.
+        except (EOFError, KeyboardInterrupt):
+            # Closing the input, or pressing Ctrl-C, ends the lesson
+            # where it stands instead of dying with a traceback.
             # Lines already graded still count, so the score
             # printed after the loop is over the lines reached,
             # not over the whole lesson.
@@ -156,7 +170,7 @@ def run_file(path):
         if line.strip():
             try:
                 input("  Your explanation (Enter to continue): ")
-            except EOFError:
+            except (EOFError, KeyboardInterrupt):
                 print()
                 completed = False
                 break
