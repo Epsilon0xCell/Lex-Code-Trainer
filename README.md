@@ -1,6 +1,10 @@
-![Lex banner](banner.png)
+![Intro](intro-banner.png)
 
 # Lex-Code-Trainer
+
+![Banner](banner.png)
+
+![Scene](scene.svg)
 
 Lex is the AI programming assistant done right.
 
@@ -10,6 +14,9 @@ Lex ensures that you are not copying and pasting code but rather
 understanding each line. After Lex shows you code, only a single line is
 revealed at a time, and you are asked to explain in technical detail what
 that line is doing to reveal the next.
+
+
+![Separator](sep-heavy.svg)
 
 ## Implementation
 
@@ -33,6 +40,9 @@ shown but not graded.
 In `--file` mode your explanations are not graded: Lex shows each
 non-blank line of your file and waits for you to type an explanation or
 press Enter before revealing the next line.
+
+
+![Separator](sep-heavy.svg)
 
 ## Behaviour verified by testing
 
@@ -58,6 +68,9 @@ press Enter before revealing the next line.
   message. An empty file completes immediately.
 - If both `--file` and `--lesson` are given, `--file` takes precedence.
 
+
+![Separator](sep-heavy.svg)
+
 ## Tests
 
 ```bash
@@ -69,6 +82,9 @@ whole-word rule above, partial credit, empty input), scripted
 lesson runs (full marks, all skips, EOF early and late, Ctrl-C),
 and file mode (missing file, directory, empty file, read to the
 end, abandoned early, Ctrl-C, `--file` winning over `--lesson`).
+
+
+![Separator](sep-heavy.svg)
 
 ## Files
 
