@@ -6,39 +6,45 @@
 <title>Lex-Code-Trainer: one line at a time</title>
 <meta name="description" content="Lex reveals code a single line at a time. The next line stays hidden until the learner explains the current line in technical detail.">
 <style>
-@font-face { font-family: Archivo; src: url(fonts/Archivo.ttf); }
-* { box-sizing: border-box; }
-body { margin: 0; background: #080d0b; color: #e2e6cd; font-family: Archivo, sans-serif; line-height: 1.6; }
-.walk { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; border-left: 3px solid #22442c; }
-header { padding: 48px 0 8px; }
-header img.intro { width: 100%; height: auto; display: block; }
-h1 { letter-spacing: .35em; font-size: 1.5rem; color: #e8b85c; margin: 28px 0 6px; }
-h2 { letter-spacing: .22em; font-size: 1.05rem; color: #e8b85c; margin: 0 0 10px; }
-.lede { font-size: 1.12rem; max-width: 58ch; }
-.stretch { background: #14261a; padding: 22px 24px; margin: 34px 0; position: relative; }
-.stretch::before { content: ""; position: absolute; left: -26px; top: 26px; width: 3px; height: 44px; background: #2e6b3e; }
-code, pre { font-family: ui-monospace, Menlo, monospace; }
-pre { background: #050908; color: #cfe3ff; padding: 14px 16px; overflow-x: auto; }
-a { color: #5ca8ff; text-decoration: none; }
-a.plain::before { content: "❋ "; color: #eef2e4; font-size: .8em; }
-a.plain:hover::before { content: "❋ ❋ "; }
-.jar { display: inline-block; background: #0d1a12; color: #cfe3ff; border: 2px solid #3a5a44; border-top: 10px solid #1c2420; padding: 10px 22px 12px; margin: 6px 8px 6px 0; position: relative; overflow: hidden; }
-.jar::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 32%; background: rgba(92,168,255,.35); transition: height .25s; }
-.jar:hover::after { height: 58%; }
-.jar:active { border-top-width: 13px; }
-.jar:focus-visible { outline: none; box-shadow: 0 3px 0 #2e6b3e; }
-.jar span { position: relative; z-index: 1; }
-.mist { border: 0; height: 26px; background: linear-gradient(90deg, transparent, rgba(140,170,168,.35), transparent); margin: 10px 0; }
-.dim { color: #9db3a4; }
-footer { padding-top: 20px; color: #9db3a4; }
-.wisps { letter-spacing: .6em; color: #31537a; }
-.wisps b { color: #5ca8ff; font-weight: normal; }
+@font-face{font-family:'DM Mono';src:url('fonts/DMMono-Regular.ttf') format('truetype');font-weight:400}
+@font-face{font-family:'DM Mono';src:url('fonts/DMMono-Medium.ttf') format('truetype');font-weight:500}
+@font-face{font-family:'DM Sans';src:url('fonts/DMSans-Regular.ttf') format('truetype');font-weight:400}
+@font-face{font-family:'DM Sans';src:url('fonts/DMSans-Bold.ttf') format('truetype');font-weight:700}
+*{box-sizing:border-box}
+body{margin:0;background:#f3ecd9;color:#191713;font-family:'DM Sans',sans-serif;line-height:1.6}
+.walk{max-width:760px;margin:0 auto;padding:0 20px 64px;border-left:3px solid #191713}
+header{padding:48px 0 8px}
+header img.intro{width:100%;height:auto;display:block;border:2px solid #191713}
+header .logo{width:92px;height:92px;float:right;margin:24px 0 8px 18px;border:2px solid #191713;background:#fbf7ea}
+h1{font-family:'DM Mono',monospace;font-weight:500;letter-spacing:.18em;font-size:1.5rem;color:#191713;margin:28px 0 6px}
+h2{font-family:'DM Mono',monospace;font-weight:500;letter-spacing:.08em;font-size:1.05rem;color:#0d6e36;margin:0 0 10px}
+.lede{font-size:1.12rem;max-width:58ch}
+.stretch{background:#fbf7ea;border:2px solid #191713;padding:22px 24px;margin:34px 0;position:relative;box-shadow:5px 5px 0 rgba(25,23,19,.18)}
+.stretch::before{content:"";position:absolute;left:-26px;top:26px;width:3px;height:44px;background:#c22f1e}
+code,pre{font-family:'DM Mono',monospace}
+pre{background:#191713;color:#7ee2a8;padding:14px 16px;overflow-x:auto}
+a{color:#0d6e36;text-decoration:none}
+a.plain::before{content:"¹3  ";color:#c22f1e;font-size:.85em}
+a.plain:hover::before{content:"¹3  ¹3  "}
+.jar{display:inline-block;background:#fbf7ea;color:#191713;border:2px solid #191713;border-top:10px solid #191713;padding:10px 22px 12px;margin:6px 8px 6px 0;position:relative;overflow:hidden;font-weight:700}
+.jar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:32%;background:rgba(18,183,106,.28);transition:height .25s}
+.jar:hover::after{height:58%}
+.jar:active{border-top-width:13px}
+.jar:focus-visible{outline:none;box-shadow:0 3px 0 #c22f1e}
+.jar span{position:relative;z-index:1}
+.mist{border:0;height:26px;background:linear-gradient(90deg,transparent,rgba(25,23,19,.4),transparent);margin:10px 0}
+.dim{color:#6d675a}
+img.shot{width:100%;height:auto;display:block;border:2px solid #191713;margin:14px 0 4px}
+footer{padding-top:20px;color:#6d675a}
+.wisps{letter-spacing:.6em;color:#c22f1e}
+.wisps b{color:#0d6e36;font-weight:normal}
 </style>
 </head>
 <body>
 <div class="walk">
 <header>
-  <img class="intro" src="intro-banner.png" alt="A marsh at dusk: a broken boardwalk, a chain of blue wisps over peat water, the brightest flame half hidden behind a reed while its reflection stays complete">
+  <img class="intro" src="banner.png" alt="A long code page in a vintage computer manual, covered by a tall black mask with a single window cut in it: one green line glows through the window over a small empty speech shape waiting for an explanation, the rest of the page hidden, cream and ink black with red accents">
+  <img class="logo" src="logo.png" alt="Lex-Code-Trainer logo: a code page in ink black on manual cream, its lines covered by a black mask except one line lit in terminal green, a tutor red pencil at the mask's edge">
   <h1>LEX-CODE-TRAINER</h1>
   <p class="lede">Lex reveals code a single line at a time. The next line stays hidden until the learner explains the current line in technical detail, in their own words, well enough to prove they read it rather than skimmed it.</p>
   <p><a class="jar" href="https://github.com/Epsilon0xCell/Lex-Code-Trainer"><span>The repository</span></a> <a class="jar" href="#gate"><span>How the gate works</span></a></p>
@@ -46,6 +52,7 @@ footer { padding-top: 20px; color: #9db3a4; }
 <hr class="mist">
 <section class="stretch" id="gate">
   <h2>First stretch: the gate</h2>
+  <img class="shot" src="intro-banner.png" alt="The same code page a moment later: the mask slid one line lower, the line above now plain black and ticked in red at the margin, the new line lit green in the window">
   <p>Read the revealed line, write or speak the explanation, earn the following line, repeat until the file ends. A learner who cannot explain a line stays with that line. That staying is not a punishment screen, it is the product.</p>
   <pre>python3 lex.py                  # list lessons
 python3 lex.py --lesson loops   # study a lesson
@@ -61,15 +68,15 @@ python3 lex.py --file code.py   # line-by-line mode for your own code</pre>
 </section>
 <hr class="mist">
 <section class="stretch">
-  <h2>Third stretch: who the argument serves</h2>
-  <p>Two figures stand at the boardwalk rail in this page's marsh. The naturalist wants a mechanism for every flame and carries a collecting jar to prove it. The grandmother has watched the same marsh for sixty years and trusts pattern over mechanism, and points with her walking stick.</p>
-  <p>Lex sides with both at once. It demands the mechanism, stated out loud, and it trusts that repeated watching turns into judgement.</p>
+  <h2>Third stretch: the tutor's margin</h2>
+  <p>Two marks live in this manual's margin. The green window is the lesson's patience: one line, lit, held open until it is understood. The red pencil is the tutor's insistence: explain the line in technical detail, in your own words, or the mask does not move.</p>
+  <p>Lex sides with both at once. It demands the mechanism, stated out loud, and it trusts that repeated explaining turns into judgement.</p>
   <p>Run the tests with <code>python3 -m unittest</code>: 20 tests cover <code>grade()</code> on its own, scripted lesson runs, and file mode.</p>
   <p><a class="plain" href="https://github.com/Epsilon0xCell/Lex-Code-Trainer">github.com/Epsilon0xCell/Lex-Code-Trainer</a></p>
 </section>
 <footer>
   <p class="wisps"><b>●</b> ● ● ● ● ● ●</p>
-  <p>Lex-Code-Trainer. One line revealed, the remainder withheld, until the learner explains the line in front of them.</p>
+  <p>Lex-Code-Trainer. One line revealed, the remainder withheld, until the learner explains the line in front of them. Fonts: DM Mono and DM Sans, self-hosted (SIL Open Font License 1.1, licenses beside the font files).</p>
 </footer>
 </div>
 </body>
