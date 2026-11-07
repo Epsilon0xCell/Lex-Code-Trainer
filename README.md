@@ -1,8 +1,10 @@
-![Intro](intro-banner.png)
+![Intro: a code page in a vintage manual, its lines covered by a tall black mask slid one line lower than before, the line above now plain black and ticked in red at the margin, the new line lit green in the mask's window, a red pencil at its edge, on manual cream](intro-banner.png)
 
 # Lex-Code-Trainer
 
-![Banner](banner.png)
+<p align="center"><img src="logo.png" alt="Lex-Code-Trainer logo: a code page in ink black on manual cream, its lines covered by a black mask except one line lit in terminal green, a tutor red pencil resting at the mask's edge" width="200"></p>
+
+![Banner: a long code page in a vintage computer manual, covered by a tall black mask with a single window cut in it, one green line glowing through the window over a small empty speech shape waiting for an explanation, the rest of the page hidden, cream and ink black with red accents](banner.png)
 
 ![Scene](scene.svg)
 
